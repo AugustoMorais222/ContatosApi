@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 
 
 @OpenAPIDefinition(
-		info = @io.swagger.v3.oas.annotations.info.Info(title = "Consultorio API",
+		info = @io.swagger.v3.oas.annotations.info.Info(title = "Contatos API",
 				version = "1.0",
-				description = "Coleção dos endpoints do sistema consultas médicas",
+				description = "Coleção dos endpoints do sistema contatos",
 		contact = @io.swagger.v3.oas.annotations.info.Contact(name = "Augusto", email = "augustodemor04@gmail.com")))
 
 @SpringBootApplication

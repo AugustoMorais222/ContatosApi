@@ -14,53 +14,45 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "contato")
-public class Contato {
+@Table(name = "grupo")
+public class Grupo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    
+    @Column(unique = true)	
     private String nome;
-    @Column
-    private String email;
-    @Column
-    private String telefone;
-    @OneToMany(mappedBy = "contato")
-    private Set<ContatoGrupo> grupos;
+    
+    @OneToMany(mappedBy = "grupo")
+    private Set<ContatoGrupo> contatos;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getEmail() {
-		return email;
+
+	public Set<ContatoGrupo> getContatos() {
+		return contatos;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+
+	public void setContatos(Set<ContatoGrupo> contatos) {
+		this.contatos = contatos;
 	}
-	public String getTelefone() {
-		return telefone;
-	}
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-	public Set<ContatoGrupo> getGrupos() {
-		return grupos;
-	}
-	public void setGrupos(Set<ContatoGrupo> grupos) {
-		this.grupos = grupos;
-	}
-	public Contato() {
+
+	public Grupo() {
 	}
     
     
 }
-
