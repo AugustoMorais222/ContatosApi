@@ -3,10 +3,12 @@ package com.senai.contatos_api.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.senai.contatos_api.entidades.Grupo;
 import com.senai.contatos_api.repository.GrupoRepository;
 
+@Service
 public class GrupoService {
 	
 	@Autowired

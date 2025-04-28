@@ -1,5 +1,6 @@
 package com.senai.contatos_api.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.senai.contatos_api.dtos.ContatoDto;
 import com.senai.contatos_api.entidades.Contato;
 import com.senai.contatos_api.repository.ContatoRepository;
 
@@ -52,18 +54,27 @@ public class ContatoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Contato> findById(@PathVariable Long id) {
-    	Contato contato = contatoRepository.findById(id).orElse(null);
-    	if (contato != null) {
-    	    return ResponseEntity.ok(contato);
-    	} else {
-    	    return ResponseEntity.notFound().build();
-    	}
+    public ResponseEntity<ContatoDto> findById(@PathVariable Long id) {
+        Contato contato = contatoRepository.findById(id).orElse(null);
+
+        if (contato != null) {
+            ContatoDto contatoDto = new ContatoDto(contato);
+            return ResponseEntity.ok(contatoDto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping
-    public ResponseEntity<List<Contato>> findAll() {
+    public ResponseEntity<List<ContatoDto>> findAll() {
         List<Contato> contatos = contatoRepository.findAll();
-        return ResponseEntity.ok(contatos);
+        List<ContatoDto> contatoDtos = new ArrayList<>();
+
+        for (Contato contato : contatos) {
+            ContatoDto dto = new ContatoDto(contato);
+            contatoDtos.add(dto);
+        }
+
+        return ResponseEntity.ok(contatoDtos);
     }
 }

@@ -3,10 +3,12 @@ package com.senai.contatos_api.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.senai.contatos_api.entidades.Contato;
 import com.senai.contatos_api.repository.ContatoRepository;
 
+@Service
 public class ContatoService {
 	
 	@Autowired

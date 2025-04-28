@@ -9,9 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "contato")
@@ -26,6 +23,9 @@ public class Contato {
     private String email;
     @Column
     private String telefone;
+    @Column
+    private Boolean isFavorite;
+    
     @OneToMany(mappedBy = "contato")
     private Set<ContatoGrupo> grupos;
 	public Long getId() {
@@ -59,6 +59,12 @@ public class Contato {
 		this.grupos = grupos;
 	}
 	public Contato() {
+	}
+	public Boolean getIsFavorite() {
+		return isFavorite;
+	}
+	public void setIsFavorite(Boolean isFavorite) {
+		this.isFavorite = isFavorite;
 	}
     
     

@@ -1,9 +1,11 @@
 package com.senai.contatos_api.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.senai.contatos_api.dtos.GrupoDto;
 import com.senai.contatos_api.entidades.Grupo;
 import com.senai.contatos_api.repository.GrupoRepository;
 
 @RestController
 @RequestMapping("/grupos")
+@CrossOrigin(origins = "*")
 public class GrupoController {
 
     @Autowired
@@ -50,18 +54,25 @@ public class GrupoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Grupo> findById(@PathVariable Long id) {
+    public ResponseEntity<GrupoDto> findById(@PathVariable Long id) {
     	Grupo grupo = grupoRepository.findById(id).orElse(null);
     	if (grupo != null) {
-    	    return ResponseEntity.ok(grupo);
+    		GrupoDto grupoDto = new GrupoDto(grupo);
+    	    return ResponseEntity.ok(grupoDto);
     	} else {
     	    return ResponseEntity.notFound().build();
     	}
     }
 
     @GetMapping
-    public ResponseEntity<List<Grupo>> findAll() {
+    public ResponseEntity<List<GrupoDto>> findAll() {
         List<Grupo> grupos = grupoRepository.findAll();
-        return ResponseEntity.ok(grupos);
+        List<GrupoDto> gruposDto = new ArrayList<>();
+		for (Grupo grupo : grupos) {
+			GrupoDto grupoDto = new GrupoDto(grupo);
+			gruposDto.add(grupoDto);
+		}
+		
+        return ResponseEntity.ok(gruposDto);
     }
 }
