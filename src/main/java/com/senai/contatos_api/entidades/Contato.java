@@ -28,7 +28,8 @@ public class Contato {
     
     @OneToMany(mappedBy = "contato")
     private Set<ContatoGrupo> grupos;
-	public Long getId() {
+	
+    public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
@@ -67,6 +68,12 @@ public class Contato {
 		this.isFavorite = isFavorite;
 	}
     
+	public void atualizarDados(Contato outro) {
+	    this.setNome(outro.getNome());
+	    this.setEmail(outro.getEmail());
+	    this.setTelefone(outro.getTelefone());
+	    this.setGrupos(outro.getGrupos());
+	}
     
 }
 
