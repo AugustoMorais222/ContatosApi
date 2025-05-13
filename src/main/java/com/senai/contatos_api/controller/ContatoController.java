@@ -2,6 +2,7 @@ package com.senai.contatos_api.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.senai.contatos_api.dtos.ContatoDto;
+import com.senai.contatos_api.entidades.Compromisso;
 import com.senai.contatos_api.entidades.Contato;
+import com.senai.contatos_api.entidades.Grupo;
 import com.senai.contatos_api.service.ContatoService;
 
 @RestController
@@ -48,6 +51,25 @@ public class ContatoController {
     public ResponseEntity<ContatoDto> findById(@PathVariable Long id) {
         Contato contato = contatoService.findById(id);
 		return ResponseEntity.ok(new ContatoDto(contato));
+    }
+    
+
+    @GetMapping("/{id}/grupos")
+    public ResponseEntity<Set<Grupo>> findAllGrupos(@PathVariable Long id) {
+        Contato contatoOpt = contatoService.findById(id);
+        if (contatoOpt != null) {
+            return ResponseEntity.ok(contatoOpt.getGrupos());
+        }
+        return ResponseEntity.notFound().build();
+    }
+    
+    @GetMapping("/{id}/compromissos")
+    public ResponseEntity<Set<Compromisso>> findAllCompromissos(@PathVariable Long id) {
+        Contato contatoOpt = contatoService.findById(id);
+        if (contatoOpt != null) {
+            return ResponseEntity.ok(contatoOpt.getCompromissos());
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping
